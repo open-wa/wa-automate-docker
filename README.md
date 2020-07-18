@@ -2,7 +2,7 @@
 
 This repo shows a simple way to create a memory efficient API out of your WhatsApp account using docker.
 
-## How to
+## How to deploy the ready-made API
 
 There are a few steps you have to follow in order to get started.
 
@@ -35,6 +35,20 @@ Let's get started.
 3. Build and deploy the containers
 
     First of all, make sure you have docker and docker-compose installed. Then run the following command in the folder.
+
+    ```bash
+    > docker-compose up --build
+    ```
+
+## How to use this on your own app
+
+It's very simple to use this efficient docker setup on your own custom app made with [@open-wa/wa-automate-nodejs](https://github.com/open-wa/wa-automate-nodejs).
+
+1. Copy [Dockerfile](https://github.com/open-wa/wa-automate-docker/blob/master/Dockerfile) and [docker-compose.yaml](https://github.com/open-wa/wa-automate-docker/blob/master/docker-compose.yaml) into the top level of your project folder (next to package.json).
+2. Uncomment line 12 in [Dockerfile](https://github.com/open-wa/wa-automate-docker/blob/master/Dockerfile) to install the required dependencies for your app.
+
+3.  
+    Wehn you're ready, run:
 
     ```bash
     > docker-compose up --build

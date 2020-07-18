@@ -8,7 +8,8 @@ WORKDIR /usr/src/app
 # where available (npm@5+)
 COPY package*.json ./
 
-
+# Uncomment the next line to use this Dockerfile on your own app
+#run npm install
 RUN npm install --only=dev --ignore-scripts
 RUN npm rebuild --verbose sharp
 
@@ -18,5 +19,4 @@ COPY . .
 
 EXPOSE 8080
 
-#Uncomment the next line if you want to use the npx no-install API. Using --in-docker will allow the service to infer config variables from the environment.
-CMD ["npm", "run", "api"]
+CMD ["npm", "run", "start"]
