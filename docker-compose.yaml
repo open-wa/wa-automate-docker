@@ -1,0 +1,35 @@
+
+version: "3.8"
+services:
+
+  browser:
+    image: browserless/chrome
+    hostname: browser
+    ports:
+      - "3000:3000"
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+    environment:
+      CONNECTION_TIMEOUT: -1
+      KEEP_ALIVE: 'true'
+      WORKSPACE_EXPIRE_DAYS: 1
+      ENABLE_CORS: 'true'
+      CHROME_REFRESH_TIME: 86400000
+      DEFAULT_BLOCK_ADS: 'true'
+      FUNCTION_ENABLE_INCOGNITO_MODE: 'true'
+
+  app:
+    build: .
+    restart: on-failure
+    depends_on:
+      - browser
+    ports:
+      - "8080:8080"
+    environment:
+      WA_BROWSER_WS_ENDPOINT: 'http://browser:3000'
+      WA_DISABLE_SPINS: 'true'
