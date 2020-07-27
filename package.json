@@ -19,7 +19,7 @@
   "homepage": "https://github.com/open-wa/wa-automate-docker#readme",
   "dependencies": {},
   "devDependencies": {
-    "@open-wa/wa-automate": "^1.9.103-1",
+    "@open-wa/wa-automate": "latest",
     "npx": "^10.2.2"
   }
 }
