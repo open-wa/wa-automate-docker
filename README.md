@@ -25,10 +25,10 @@ Let's get started.
     The quickest way to do this after cloning the repo, run the following code:
 
     ```bash
-    > npm run api
+    > npm run sessiondata
     ```
 
-    After scanning the QR code, a session.data.json file will be saved to the folder. Make sure to keep     this safe and leave it in this folder.
+    After scanning the QR code, a session.data.json file will be saved to the folder. Make sure to keep this safe and leave it in this folder. You can end the process when the session data is saved.
 
     Note: The file MUST BE NAMED `session.data.json`
 

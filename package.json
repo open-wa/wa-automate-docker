@@ -4,7 +4,8 @@
   "description": "This is a simple app that will expose an API that you can use to control your whatsapp instance.",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npx wa-automate --in-docker -p 8080 --npm-options=--ignore-scripts"
+    "start": "npx wa-automate --in-docker -p 8080 --npm-options=--ignore-scripts",
+    "sessiondata" : "npx wa-automate --disable-spins"
   },
   "repository": {
     "type": "git",
