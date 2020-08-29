@@ -37,3 +37,5 @@ services:
     environment:
       WA_BROWSER_WS_ENDPOINT: 'http://browser:3000'
       WA_DISABLE_SPINS: 'true'
+      # Uncomment next line and add the session data base64 string to authenticate the session without the need to scan it again
+      # WA_SESSION_DATA: ''

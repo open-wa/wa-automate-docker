@@ -53,3 +53,9 @@ It's very simple to use this efficient docker setup on your own custom app made 
     ```bash
     > docker-compose up --build
     ```
+
+## Set Session Data as an Environment Variable
+
+As of [@open-wa/wa-automate-nodejs](https://github.com/open-wa/wa-automate-nodejs) version 2.0.0, it is now possible to set the session data as an environment variable `WA_SESSION_DATA` string.
+
+For more updates on the features of this docker set up please star [the NodeJS library](https://github.com/open-wa/wa-automate-nodejs).
