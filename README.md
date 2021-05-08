@@ -37,7 +37,7 @@ Let's get started.
     First of all, make sure you have docker and docker-compose installed. Then run the following command in the folder.
 
     ```bash
-    > docker-compose up --build
+    > docker-compose up --build -d
     ```
 
 ## How to use this on your own app
@@ -48,10 +48,10 @@ It's very simple to use this efficient docker setup on your own custom app made 
 2. Uncomment line 12 in [Dockerfile](https://github.com/open-wa/wa-automate-docker/blob/master/Dockerfile) to install the required dependencies for your app.
 
 3.  
-    Wehn you're ready, run:
+    When you're ready, run:
 
     ```bash
-    > docker-compose up --build
+    > docker-compose up --build -d
     ```
 
 ## Set Session Data as an Environment Variable
