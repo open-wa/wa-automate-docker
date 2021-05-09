@@ -49,3 +49,4 @@ jobs:
           tags: |
             us-central1-docker.pkg.dev/open-wa-31bb1/open-wa/wa-orch:latest
             ghcr.io/smashah/wa-orch:latest
+            openwa/wa-automate
