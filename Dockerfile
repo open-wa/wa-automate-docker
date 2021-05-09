@@ -7,11 +7,14 @@ WORKDIR /usr/src/app
 #install chrome
 RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' | tee /etc/apt/sources.list.d/google-chrome.list 
 
-RUN apt-get update
+RUN apt update
 
 RUN apt install google-chrome-stable -y
 
 RUN apt upgrade -y
+
+# skip the puppeteer browser download
+ENV PUPPETEER_SKIP_DOWNLOAD true
 
 RUN npm i @open-wa/wa-automate@latest
 
