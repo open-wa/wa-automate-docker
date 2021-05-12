@@ -9,7 +9,8 @@ RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key
 
 RUN apt update
 
-RUN apt install google-chrome-stable -y
+RUN apt install google-chrome-stable fonts-freefont-ttf libxss1 --no-install-recommends -y \
+    && rm -rf /var/lib/apt/lists/*
 
 RUN apt upgrade -y
 
@@ -17,6 +18,14 @@ RUN apt upgrade -y
 ENV PUPPETEER_SKIP_DOWNLOAD true
 
 RUN npm i @open-wa/wa-automate@latest
+    # Add user so we don't need --no-sandbox.
+    # same layer as npm install to keep re-chowned files from using up several hundred MBs more space
+RUN groupadd -r pptruser && useradd -r -g pptruser -G audio,video pptruser \
+    && mkdir -p /home/pptruser/Downloads \
+    && chown -R pptruser:pptruser /home/pptruser \
+    && chown -R pptruser:pptruser /usr/src/app/node_modules
+
+USER pptruser
 
 COPY . /usr/src/app
 
