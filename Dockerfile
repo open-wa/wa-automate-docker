@@ -44,4 +44,4 @@ ENV WA_DISABLE_SPINS true
 
 EXPOSE $PORT
 
-CMD [ "npx", "@open-wa/wa-automate", "--use-chrome", " --in-docker", "--port", "$PORT", "--qr-timeout", "0"]
+ENTRYPOINT [ "npx", "@open-wa/wa-automate", "--use-chrome", " --in-docker", "--port", "$PORT", "--qr-timeout", "0"]
