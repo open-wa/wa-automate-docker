@@ -44,4 +44,4 @@ ENV WA_DISABLE_SPINS true
 
 EXPOSE $PORT
 
-ENTRYPOINT [ "npx", "@open-wa/wa-automate", "--use-chrome", " --in-docker", "--port", "$PORT", "--qr-timeout", "0", "--popup"]
+ENTRYPOINT [ "node", "./node_modules/@open-wa/wa-automate/bin/server.js", "--use-chrome", " --in-docker", "--port", "$PORT", "--qr-timeout", "0", "--popup"]
