@@ -30,6 +30,8 @@ USER pptruser
 
 COPY . /usr/src/app
 
+RUN mkdir /sessions
+
 ENV NODE_ENV production
 
 ENV IN_DOCKER true
