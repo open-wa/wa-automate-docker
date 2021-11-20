@@ -15,6 +15,29 @@ jobs:
         name: Checkout
         uses: actions/checkout@v2
       -
+        name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v3
+        with:
+          # list of Docker images to use as base name for tags
+          images: |
+            us-central1-docker.pkg.dev/open-wa-31bb1/open-wa/wa-automate
+            ghcr.io/open-wa/wa-automate
+            openwa/wa-automate
+          # generate Docker tags based on the following events/attributes
+          tags: |
+            type=schedule
+            type=ref,event=pr
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}}
+            type=sha
+            type=ref,event=branch,enable=${{ !endsWith(github.ref, github.event.repository.default_branch) }}
+            type=raw,value=latest,enable=${{ endsWith(github.ref, github.event.repository.default_branch) }}
+            type=raw,value=${{ github.event.client_payload.version }}
+          flavor: |
+            latest=false
+      -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v1
       -
@@ -48,7 +71,5 @@ jobs:
           file: ./Dockerfile
           # platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/ppc64le,linux/s390x
           push: true
-          tags: |
-            us-central1-docker.pkg.dev/open-wa-31bb1/open-wa/wa-automate:latest
-            ghcr.io/open-wa/wa-automate:latest
-            openwa/wa-automate
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
