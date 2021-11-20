@@ -43,5 +43,6 @@ ENV WA_DISABLE_SPINS true
 # ENV PORT 8080
 
 EXPOSE $PORT
+EXPOSE 8080
 
 ENTRYPOINT [ "node", "./node_modules/@open-wa/wa-automate/bin/server.js", "--use-chrome", " --in-docker", "--port", "$PORT", "--qr-timeout", "0", "--popup"]
