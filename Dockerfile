@@ -1,6 +1,7 @@
 FROM node:current-stretch
 
 RUN mkdir -p /usr/src/app
+RUN mkdir -p /sessions
 
 WORKDIR /usr/src/app
 
@@ -24,13 +25,13 @@ RUN groupadd -r pptruser && useradd -r -g pptruser -G audio,video pptruser \
     && mkdir -p /home/pptruser/Downloads \
     && chown -R pptruser:pptruser /home/pptruser \
     && chown -R pptruser:pptruser /usr/src/app \
+    && chown -R pptruser:pptruser /sessions \
     && chown -R pptruser:pptruser /usr/src/app/node_modules
 
 USER pptruser
 
 COPY . /usr/src/app
 
-RUN mkdir -p /sessions
 
 ENV NODE_ENV production
 
