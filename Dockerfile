@@ -30,7 +30,7 @@ USER pptruser
 
 COPY . /usr/src/app
 
-RUN mkdir /sessions
+RUN mkdir -p /sessions
 
 ENV NODE_ENV production
 
