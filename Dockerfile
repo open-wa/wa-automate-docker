@@ -32,20 +32,15 @@ USER pptruser
 
 COPY . /usr/src/app
 
-
 ENV NODE_ENV production
-
-ENV IN_DOCKER true
+ENV PORT 8080
 
 # Add your custom ENV vars here:
 ENV WA_USE_CHROME true
 ENV WA_POPUP true
 ENV WA_DISABLE_SPINS true
-
-#PORT will most likely be set by your cloud provider. If not, uncomment the next line and set it here
-# ENV PORT 8080
+ENV WA_PORT $PORT
 
 EXPOSE $PORT
-EXPOSE 8080
 
-ENTRYPOINT [ "node", "./node_modules/@open-wa/wa-automate/bin/server.js", "--use-chrome", " --in-docker", "--port", "$PORT", "--qr-timeout", "0", "--popup"]
+ENTRYPOINT [ "node", "./node_modules/@open-wa/wa-automate/bin/server.js", " --in-docker", "--qr-timeout", "0", "--popup"]
