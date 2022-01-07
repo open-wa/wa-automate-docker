@@ -6,6 +6,8 @@ on:
     types: [library_updated]
   push:
     branches: [master]
+    paths-ignore:
+      - '**/README.md'
 
 jobs:
   multi:
