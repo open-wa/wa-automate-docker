@@ -40,6 +40,7 @@ ENV WA_USE_CHROME true
 ENV WA_POPUP true
 ENV WA_DISABLE_SPINS true
 ENV WA_PORT $PORT
+ENV WA_EXECUTABLE_PATH /usr/bin/google-chrome-stable
 
 EXPOSE $PORT
 
