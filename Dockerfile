@@ -43,4 +43,4 @@ ENV WA_PORT $PORT
 
 EXPOSE $PORT
 
-ENTRYPOINT [ "node", "./node_modules/@open-wa/wa-automate/bin/server.js", " --in-docker", "--qr-timeout", "0", "--popup"]
+ENTRYPOINT [ "node", "./node_modules/@open-wa/wa-automate/bin/server.js", " --in-docker", "--qr-timeout", "0", "--popup", "--debug"]
