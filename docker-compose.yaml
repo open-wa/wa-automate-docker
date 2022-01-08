@@ -1,10 +1,13 @@
 
-version: "3.8"
+version: "3.9"
 services:
 
   browser:
-    image: browserless/chrome:1.22-chrome-stable
+    image: browserless/chrome:latest
     hostname: browser
+    init: true
+    volumes:
+      - "sessions:/sessions"
     ports:
       - "3000:3000"
     deploy:
@@ -27,15 +30,22 @@ services:
       USE_CHROME_STABLE: 'true'
       NODE_ENV: 'production'
 
-  app:
-    build: .
+  owa:
+    image: openwa/wa-automate:latest
+    hostname: owa
+    init: true
     restart: on-failure
+    volumes:
+      - "sessions:/sessions"
     depends_on:
       - browser
     ports:
       - "8080:8080"
     environment:
-      WA_BROWSER_WS_ENDPOINT: 'http://browser:3000'
+      WA_BROWSER_WS_ENDPOINT: 'ws://browser:3000'
       WA_DISABLE_SPINS: 'true'
       # Uncomment next line and add the session data base64 string to authenticate the session without the need to scan it again
       # WA_SESSION_DATA: ''
+
+volumes:
+  sessions:
