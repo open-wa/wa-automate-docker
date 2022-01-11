@@ -5,10 +5,12 @@ RUN <<eot bash
   mkdir -p /usr/src/app
   mkdir -p /usr/src/app/node_modules
   mkdir -p /sessions
-  wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
-  echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' | tee /etc/apt/sources.list.d/google-chrome.list
+  cd /tmp
+  wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+  dpkg -i google-chrome-stable_current_amd64.deb
+  rm google-chrome-stable_current_amd64.deb
   apt update
-  apt install google-chrome-stable fonts-freefont-ttf libxss1 --no-install-recommends nano -y
+  apt install nano --no-install-recommends  -y
   apt upgrade
   rm -rf /var/lib/apt/lists/*
   groupadd -r pptruser && useradd -r -g pptruser -G audio,video pptruser
