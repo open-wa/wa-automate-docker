@@ -1,5 +1,5 @@
 # syntax = docker/dockerfile:1.3-labs
-FROM node:current-stretch
+FROM node:current-stretch-slim
 
 RUN <<eot bash
   mkdir -p /usr/src/app
