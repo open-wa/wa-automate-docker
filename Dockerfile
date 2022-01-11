@@ -36,7 +36,10 @@ ENV WA_DISABLE_SPINS true
 ENV WA_PORT $PORT
 ENV WA_EXECUTABLE_PATH /usr/bin/google-chrome-stable
 
-RUN npm i @open-wa/wa-automate@latest
+RUN <<eot bash
+npm i @open-wa/wa-automate@latest
+npm clean cache --force
+eot
 
 COPY . /usr/src/app
 
