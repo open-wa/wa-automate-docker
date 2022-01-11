@@ -5,13 +5,13 @@ RUN <<eot bash
   mkdir -p /usr/src/app
   mkdir -p /usr/src/app/node_modules
   mkdir -p /sessions
+  apt update
+  apt install nano wget --no-install-recommends  -y
+  apt upgrade
   cd /tmp
   wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
   dpkg -i google-chrome-stable_current_amd64.deb
   rm google-chrome-stable_current_amd64.deb
-  apt update
-  apt install nano --no-install-recommends  -y
-  apt upgrade
   rm -rf /var/lib/apt/lists/*
   groupadd -r pptruser && useradd -r -g pptruser -G audio,video pptruser
   mkdir -p /home/pptruser/Downloads
