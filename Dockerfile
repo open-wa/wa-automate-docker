@@ -37,8 +37,8 @@ ENV WA_PORT $PORT
 ENV WA_EXECUTABLE_PATH /usr/bin/google-chrome-stable
 
 RUN <<eot bash
-npm i @open-wa/wa-automate@latest
-npm clean cache --force
+  npm i @open-wa/wa-automate@latest
+  npm cache clean --force
 eot
 
 COPY . /usr/src/app
