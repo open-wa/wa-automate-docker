@@ -9,8 +9,8 @@ RUN <<eot bash
   apt install nano wget --no-install-recommends  -y
   apt upgrade
   cd /tmp
-  wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-  dpkg -i google-chrome-stable_current_amd64.deb
+  wget -q --no-check-certificate https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+  apt install ./google-chrome-stable_current_amd64.deb -y
   rm google-chrome-stable_current_amd64.deb
   rm -rf /var/lib/apt/lists/*
   groupadd -r pptruser && useradd -r -g pptruser -G audio,video pptruser
