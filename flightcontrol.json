@@ -5,7 +5,7 @@
         "name": "Production",
         "region": "us-west-2",
         "source": {
-          "branch": "main"
+          "branch": "master"
         },
         "services": [
           {
@@ -21,9 +21,6 @@
             "maxInstances": 1,
             "envVariables": {
               "SOMETHING_STATIC": "123",
-              "DATABASE_URL": {
-                "fromParameterStore": "production.database-url"
-              }
             }
           }
         ]
