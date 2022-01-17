@@ -23,7 +23,7 @@
               "SOMETHING_STATIC": "123",
               "DATABASE_URL": {
                 "fromParameterStore": "production.database-url"
-              },
+              }
             }
           }
         ]
