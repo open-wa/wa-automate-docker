@@ -7,7 +7,7 @@ RUN <<eot bash
   mkdir -p /sessions
   apt update
   apt install nano wget --no-install-recommends  -y
-  apt upgrade
+  apt upgrade -y
   cd /tmp
   wget -q --no-check-certificate https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
   apt install ./google-chrome-stable_current_amd64.deb -y
