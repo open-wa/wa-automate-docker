@@ -1,5 +1,6 @@
 # syntax = docker/dockerfile:1.3-labs
 FROM node:current-stretch-slim
+COPY . /usr/src/app
 
 RUN <<eot bash
   mkdir -p /usr/src/app
@@ -20,15 +21,15 @@ RUN <<eot bash
   groupadd -r pptruser && useradd -r -g pptruser -G audio,video pptruser
   mkdir -p /home/pptruser/Downloads
   chown -R pptruser:pptruser /home/pptruser
-  chown -R pptruser:pptruser /usr/src/app
   chown -R pptruser:pptruser /sessions
   chown -R pptruser:pptruser /usr/src/app/node_modules
+  cd /usr/src/app
+  npm i @open-wa/wa-automate@latest --ignore-scripts
+  chown -R pptruser:pptruser /usr/src/app
 eot
 
 WORKDIR /usr/src/app
 
-# test with root later
-USER pptruser
 
 # skip the puppeteer browser download
 ENV PUPPETEER_SKIP_DOWNLOAD true
@@ -42,15 +43,10 @@ ENV WA_DISABLE_SPINS true
 ENV WA_PORT $PORT
 ENV WA_EXECUTABLE_PATH /usr/bin/google-chrome-stable
 
-COPY . /usr/src/app
-
-RUN <<eot bash
-  chmod +x start.sh
-  npm i @open-wa/wa-automate@latest
-  npm cache clean --force
-eot
-
-
 EXPOSE $PORT
 
-ENTRYPOINT [ "./start.sh", "--in-docker", "--qr-timeout", "0", "--popup", "--debug"]
+# test with root later
+USER pptruser
+
+
+ENTRYPOINT ["./start.sh", "--in-docker", "--qr-timeout", "0", "--popup", "--debug"]

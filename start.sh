@@ -1,5 +1,7 @@
 #!/bin/bash 
+echo "Starting the application"
+echo $@
 if [[ $@ == *"--always-latest"* ]]; then
-  eval "PUPPETEER_SKIP_DOWNLOAD=true npm i @open-wa/wa-automate@latest && npm clean cache --force"
+  eval "PUPPETEER_SKIP_DOWNLOAD=true npm i @open-wa/wa-automate@latest --ignore-scripts"
 fi
-eval node ./node_modules/@open-wa/wa-automate/bin/server.js $@
+exec node ./node_modules/@open-wa/wa-automate/bin/server.js $@
