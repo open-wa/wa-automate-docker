@@ -13,6 +13,10 @@ RUN <<eot bash
   apt install ./google-chrome-stable_current_amd64.deb -y
   rm google-chrome-stable_current_amd64.deb
   rm -rf /var/lib/apt/lists/*
+  cd /opt/google/chrome
+  rm -rf WidevineCdm/
+  cd locales
+  ls | grep -v file.txt | xargs rm
   groupadd -r pptruser && useradd -r -g pptruser -G audio,video pptruser
   mkdir -p /home/pptruser/Downloads
   chown -R pptruser:pptruser /home/pptruser
