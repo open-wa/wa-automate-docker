@@ -6,7 +6,7 @@ RUN <<eot bash
   mkdir -p /usr/src/app/node_modules
   mkdir -p /sessions
   apt update
-  apt install nano wget curl nmap --no-install-recommends  -y
+  apt install nano wget --no-install-recommends  -y
   apt upgrade -y
   cd /tmp
   wget -q --no-check-certificate https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
