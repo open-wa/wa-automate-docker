@@ -31,7 +31,6 @@ jobs:
             type=ref,event=pr
             type=ref,event=branch,enable=${{ !endsWith(github.ref, github.event.repository.default_branch) }}
             type=raw,value=latest
-            type=raw,value=${{ github.event.client_payload.version }}
           flavor: |
             latest=false
       -
