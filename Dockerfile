@@ -42,13 +42,15 @@ ENV WA_DISABLE_SPINS true
 ENV WA_PORT $PORT
 ENV WA_EXECUTABLE_PATH /usr/bin/google-chrome-stable
 
+COPY . /usr/src/app
+
 RUN <<eot bash
+  chmod +x start.sh
   npm i @open-wa/wa-automate@latest
   npm cache clean --force
 eot
 
-COPY . /usr/src/app
 
 EXPOSE $PORT
 
-ENTRYPOINT [ "node", "./node_modules/@open-wa/wa-automate/bin/server.js", "--in-docker", "--qr-timeout", "0", "--popup", "--debug"]
+ENTRYPOINT [ "./start.sh", "--in-docker", "--qr-timeout", "0", "--popup", "--debug"]
