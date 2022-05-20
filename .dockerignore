@@ -4,3 +4,4 @@ Dockerfile
 Dockerfile.legacy
 flightcontrol.json
 README.md
+.git*

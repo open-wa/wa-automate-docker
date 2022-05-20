@@ -13,7 +13,10 @@ RUN <<eot bash
   wget -q --no-check-certificate https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
   apt install ./google-chrome-stable_current_amd64.deb -y
   rm google-chrome-stable_current_amd64.deb
+  apt autoremove -y
   rm -rf /var/lib/apt/lists/*
+  rm -rf /usr/share/doc/*
+  rm -rf /usr/share/icons/*
   cd /opt/google/chrome
   rm -rf WidevineCdm/
   cd locales
@@ -26,6 +29,7 @@ RUN <<eot bash
   cd /usr/src/app
   npm i @open-wa/wa-automate@latest --ignore-scripts
   chown -R pptruser:pptruser /usr/src/app
+  npm cache clean --force
 eot
 
 WORKDIR /usr/src/app
