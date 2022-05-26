@@ -29,7 +29,7 @@ RUN <<eot bash
   mkdir -p /usr/src/app/node_modules
   mkdir -p /sessions
   apt update
-  apt install nano -y
+  apt install nano dumb-init -y
   dpkg --print-architecture
   if [ $(dpkg --print-architecture) == "arm64" ];
   then
@@ -80,4 +80,4 @@ EXPOSE $PORT
 USER owauser
 
 
-ENTRYPOINT ["./start.sh", "--in-docker", "--qr-timeout", "0", "--popup", "--debug"]
+ENTRYPOINT ["/usr/bin/dumb-init", "--", "./start.sh", "--in-docker", "--qr-timeout", "0", "--popup", "--debug"]
