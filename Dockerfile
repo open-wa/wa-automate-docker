@@ -13,6 +13,7 @@ ENV IS_DOCKER=true
 ENV WA_DISABLE_SPINS true
 ENV WA_PORT $PORT
 ENV WA_EXECUTABLE_PATH=/usr/bin/google-chrome
+ENV WA_CLI_CONFIG=/config
 ENV CHROME_PATH=${WA_EXECUTABLE_PATH}
 ENV WA_USE_CHROME=true
 
@@ -27,6 +28,7 @@ WORKDIR $APP_DIR
 RUN <<eot bash
   mkdir -p /usr/src/app
   mkdir -p /usr/src/app/node_modules
+  mkdir -p /config
   mkdir -p /sessions
   apt update
   apt install nano dumb-init -y
@@ -63,9 +65,9 @@ RUN <<eot bash
   mkdir -p /home/owauser/Downloads
   chown -R owauser:owauser /home/owauser
   chown -R owauser:owauser /sessions
+  chown -R owauser:owauser /config
   chown -R owauser:owauser /usr/src/app/node_modules
   chown -R owauser:owauser ${WA_EXECUTABLE_PATH}
-  chown -R owauser:owauser /usr/bin/google-chrome
   chown -R owauser:owauser /usr/bin/google-chrome
   cd /usr/src/app
   chown -R owauser:owauser /usr/src/app
