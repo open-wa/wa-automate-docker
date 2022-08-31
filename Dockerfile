@@ -75,7 +75,7 @@ RUN <<eot bash
   npm cache clean --force
 eot
 
-RUN npm prune --production && chown -R owauser:owauser $APP_DIR
+RUN npm install -g npm && npm prune --production && chown -R owauser:owauser $APP_DIR
 EXPOSE $PORT
 
 # test with root later
