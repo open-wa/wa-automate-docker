@@ -57,6 +57,7 @@ RUN <<eot bash
     cd locales
     ls | grep -v file.txt | xargs rm
   fi
+  npm install -g npm@latest
   apt autoremove -y
   rm -rf /var/lib/apt/lists/*
   rm -rf /usr/share/doc/*
@@ -75,7 +76,7 @@ RUN <<eot bash
   npm cache clean --force
 eot
 
-RUN npm install -g npm && npm prune --production && chown -R owauser:owauser $APP_DIR
+RUN npm prune --production && chown -R owauser:owauser $APP_DIR
 EXPOSE $PORT
 
 # test with root later
