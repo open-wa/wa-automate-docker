@@ -32,6 +32,7 @@ RUN <<eot bash
   mkdir -p /sessions
   apt update
   apt install nano git dumb-init -y
+  git config --global url."https://github.com/".insteadOf ssh://git@github.com/
   dpkg --print-architecture
   if [ $(dpkg --print-architecture) == "arm64" ];
   then
