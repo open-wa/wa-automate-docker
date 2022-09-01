@@ -32,7 +32,11 @@ RUN <<eot bash
   mkdir -p /sessions
   apt update
   apt install nano git dumb-init -y
-  git config --global url."https://github.com/".insteadOf ssh://git@github.com/
+  # git config --global url."https://github.com/".insteadOf ssh://git@github.com/
+  # mkdir -p /root/.ssh
+  # id_rsa /root/.ssh/id_rsa
+  # chmod 700 /root/.ssh/id_rsa
+  # echo "Host github.com\n\tStrictHostKeyChecking no\n" >> /root/.ssh/config
   dpkg --print-architecture
   if [ $(dpkg --print-architecture) == "arm64" ];
   then
