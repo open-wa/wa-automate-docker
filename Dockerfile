@@ -1,5 +1,5 @@
 # syntax = docker/dockerfile:1.3-labs
-FROM node:18.8.0-bullseye-slim
+FROM node:current-bullseye-slim
 ENV APP_DIR=/usr/src/app
 
 
@@ -31,12 +31,7 @@ RUN <<eot bash
   mkdir -p /config
   mkdir -p /sessions
   apt update
-  apt install nano git dumb-init -y
-  # git config --global url."https://github.com/".insteadOf ssh://git@github.com/
-  # mkdir -p /root/.ssh
-  # id_rsa /root/.ssh/id_rsa
-  # chmod 700 /root/.ssh/id_rsa
-  # echo "Host github.com\n\tStrictHostKeyChecking no\n" >> /root/.ssh/config
+  apt install git nano dumb-init -y
   dpkg --print-architecture
   if [ $(dpkg --print-architecture) == "arm64" ];
   then
@@ -81,8 +76,7 @@ RUN <<eot bash
   npm cache clean --force
 eot
 
-RUN npm prune --production
-RUN chown -R owauser:owauser $APP_DIR
+RUN npm prune --production && chown -R owauser:owauser $APP_DIR
 EXPOSE $PORT
 
 # test with root later
