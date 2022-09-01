@@ -76,7 +76,7 @@ RUN <<eot bash
   npm cache clean --force
 eot
 
-# RUN npm prune --production
+RUN npm prune --production
 RUN chown -R owauser:owauser $APP_DIR
 EXPOSE $PORT
 
