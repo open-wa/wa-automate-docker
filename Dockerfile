@@ -1,5 +1,5 @@
 # syntax = docker/dockerfile:1.3-labs
-FROM node:current-bullseye-slim
+FROM node:18.8.0-bullseye-slim
 ENV APP_DIR=/usr/src/app
 
 
