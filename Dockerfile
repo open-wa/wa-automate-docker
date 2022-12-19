@@ -37,6 +37,7 @@ RUN <<eot bash
   then
     echo "Installing arm64 dependencies"
     cd $APP_DIR
+    dpkg --configure -a --ignore-depends=grub
     apt -y -qq --no-install-recommends install libgtk2.0-0 libsm6 libatk-bridge2.0-0 libc6-dev libdrm2 libice6 libasound2 libatk1.0-0 libc6 libcairo2 libcups2 libdbus-1-3 libexpat1 libfontconfig1 libgbm-dev libgbm1 libgcc1 libgconf-2-4 libglib2.0-0 libgtk-3-0 libnspr4 libnss3 libpango-1.0-0 libpangocairo-1.0-0 libstdc++6 libx11-6 libx11-xcb1 libxcb1 libxcomposite1 libxcursor1 libxdamage1 libxext6 libxfixes3 libxi6 libxrandr2 libxrender1 libxss1 libxtst6
     PUPPETEER_SKIP_DOWNLOAD=true npm i puppeteer playwright-core os util extract-zip fs-extra lodash node-fetch rimraf
     dpigs
