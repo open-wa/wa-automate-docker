@@ -5,13 +5,11 @@ ENV APP_DIR=/usr/src/app
 
 ENV SKIP_GITIGNORE_CHECK true
 ENV NODE_ENV production
-ENV PORT 8080
 
 # Add your custom ENV vars here:
 ENV WA_POPUP true
 ENV IS_DOCKER=true
 ENV WA_DISABLE_SPINS true
-ENV WA_PORT $PORT
 ENV WA_EXECUTABLE_PATH=/usr/bin/google-chrome
 ENV WA_CLI_CONFIG=/config
 ENV CHROME_PATH=${WA_EXECUTABLE_PATH}
@@ -78,7 +76,6 @@ RUN <<eot bash
 eot
 
 RUN npm prune --production && chown -R owauser:owauser $APP_DIR
-EXPOSE $PORT
 
 # test with root later
 USER owauser
