@@ -18,8 +18,11 @@ For example:
 # Defaults
 > docker run -p 8080:8080 --init openwa/wa-automate
 
-# Custom webhook & socket mode enabled for easy integration with node-red
-> docker run -p 8080:8080 --init openwa/wa-automate -w https://webhook.site.... --socket
+# Custom webhook, port & socket mode enabled for easy integration with node-red
+> docker run -p 8080:8085 --init openwa/wa-automate -w -p 8085 https://webhook.site.... --socket
+
+# You can also use environment variables to set the port
+> docker run -e PORT=8085 -p 8080:8085 --init openwa/wa-automate -w https://webhook.site.... --socket
 ```
 
 ## Versioning
