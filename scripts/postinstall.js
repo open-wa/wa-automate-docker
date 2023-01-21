@@ -14,7 +14,9 @@ import * as path from 'path'
 import { promisify } from 'util'
 import extract from 'extract-zip';
 import fs from 'fs-extra'
-import * as _ from 'lodash'
+import chain from 'lodash/chain.js';
+import isNil from 'lodash/isNil.js';
+
 import fetch from 'node-fetch';
 import { installBrowsersForNpmInstall } from 'playwright-core/lib/server'
 import puppeteer from 'puppeteer'
@@ -23,8 +25,6 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const execAsync = promisify(nodeExec);
 const hostsJson = path.join(__dirname, '..', 'hosts.json');
-console.log("🚀 ~ file: postinstall.js ~ line 26 ~ hostsJson", hostsJson)
-console.log("🚀 ~ file: postinstall.js ~ line 26 ~ __dirname", __dirname)
 
 const exec = async (command) => {
   const { stdout, stderr } = await execAsync(command);
@@ -69,10 +69,8 @@ const chromedriverUrl = (() => {
   return `https://www.googleapis.com/download/storage/v1/b/chromium-browser-snapshots/o/Linux_x64%2F${PUPPETEER_CHROMIUM_REVISION}%2Fchromedriver_linux64.zip?alt=media`;
 })();
 
-const downloadUrlToDirectory = (url, dir) => {
-    console.log(`Downloading ${url} to ${dir}`);
-    // return exec(`wget ${url} -p ${dir}`);
-  return fetch(url).then(
+const downloadUrlToDirectory = (url, dir) =>
+  fetch(url).then(
     (response) =>
       new Promise((resolve, reject) => {
         response.body
@@ -81,7 +79,7 @@ const downloadUrlToDirectory = (url, dir) => {
           .on('finish', resolve);
       }),
   );
-}
+
 const unzip = async (source, target) => extract(source, { dir: target });
 const move = async (src, dest) => fs.move(src, dest, { overwrite: true });
 const waitForFile = async (filePath) =>
@@ -102,6 +100,31 @@ const waitForFile = async (filePath) =>
     );
   });
 
+const downloadAdBlockList = () => {
+  console.log(`Downloading ad-blocking list`);
+
+  return fetch(
+    'https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts',
+  )
+    .then((res) => res.text())
+    .then((raw) =>
+      chain(raw)
+        .split('\n')
+        .map((line) => {
+          const fragments = line.split(' ');
+          if (fragments.length > 1 && fragments[0] === '0.0.0.0') {
+            return fragments[1].trim();
+          }
+          return null;
+        })
+        .reject(isNil)
+        .value(),
+    )
+    .then((hostsArr) => {
+      fs.writeFileSync(hostsJson, JSON.stringify(hostsArr, null, '  '));
+    });
+};
+
 const downloadChromium = () => {
   if (USE_CHROME_STABLE && IS_LINUX_ARM64) {
     throw new Error(`Chrome stable isn't supported for linux-arm64`);
@@ -120,7 +143,9 @@ const downloadChromium = () => {
     `Downloading chromium for revision ${PUPPETEER_CHROMIUM_REVISION}`,
   );
 
-  return puppeteer.createBrowserFetcher().download(PUPPETEER_CHROMIUM_REVISION);
+  return puppeteer
+    .createBrowserFetcher({ product: 'chrome' })
+    .download(PUPPETEER_CHROMIUM_REVISION);
 };
 
 const downloadChromedriver = () => {
@@ -195,8 +220,9 @@ const downloadDevTools = () => {
 
       await Promise.all([
         downloadChromium(),
-        downloadChromedriver(),
-        downloadDevTools(),
+        // downloadChromedriver(),
+        // downloadDevTools(),
+        // downloadAdBlockList(),
       ]);
 
       // If we're in docker, and this isn't a chrome-stable build,
@@ -222,13 +248,14 @@ const downloadDevTools = () => {
       reject(err);
       process.exit(1);
     } finally {
-      rimraf(browserlessTmpDir, (err) => {
+      try {
+        await rimraf(browserlessTmpDir)
         console.log('Done unpacking chromedriver and devtools assets');
-        if (err)
-          console.warn(
-            `Error removing temporary directory ${browserlessTmpDir}`,
-          );
-        resolve();
-      });
+      } catch (err) {
+        console.warn(
+          `Error removing temporary directory ${browserlessTmpDir}`,
+        );
+      }
+      resolve();
     }
   }))();

@@ -28,6 +28,7 @@ RUN <<eot bash
   mkdir -p /usr/src/app/node_modules
   mkdir -p /config
   mkdir -p /sessions
+  chown -R owauser:owauser /tmp
   apt update
   apt install git nano dumb-init -y
   dpkg --print-architecture
@@ -52,6 +53,7 @@ RUN <<eot bash
     export PUPPETEER_SKIP_DOWNLOAD=true
     ln -s /usr/bin/google-chrome-stable /usr/bin/google-chrome
     cd /opt/google/chrome
+    chown -R owauser:owauser /usr/bin/google-chrome
     rm -rf WidevineCdm/
     cd locales
     ls | grep -v file.txt | xargs rm
@@ -68,7 +70,6 @@ RUN <<eot bash
   chown -R owauser:owauser /config
   chown -R owauser:owauser /usr/src/app/node_modules
   chown -R owauser:owauser ${WA_EXECUTABLE_PATH}
-  chown -R owauser:owauser /usr/bin/google-chrome
   cd /usr/src/app
   chown -R owauser:owauser /usr/src/app
   npm i @open-wa/wa-automate@latest --ignore-scripts
