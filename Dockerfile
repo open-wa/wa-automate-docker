@@ -30,7 +30,8 @@ RUN <<eot bash
   mkdir -p /sessions
   chown -R owauser:owauser /tmp
   apt update
-  apt install git nano dumb-init -y
+  apt install git nano dumb-init locales -y
+  locale-gen en_US.UTF-16
   dpkg --print-architecture
   if [ $(dpkg --print-architecture) == "arm64" ];
   then
@@ -75,6 +76,8 @@ RUN <<eot bash
   npm i @open-wa/wa-automate@latest --ignore-scripts
   npm cache clean --force
 eot
+
+ENV LANG en_US.UTF-16
 
 RUN npm prune --production && chown -R owauser:owauser $APP_DIR
 
