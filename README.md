@@ -18,6 +18,9 @@ For example:
 # Defaults
 > docker run -p 8080:8080 --init openwa/wa-automate
 
+# Devices with arm64 processors (Raspberry Pi`s, Apple M1, etc...)
+> docker run --platform linux/arm64 -p 8080:8080 openwa/wa-automate
+
 # Custom webhook, port & socket mode enabled for easy integration with node-red
 > docker run -p 8080:8085 --init openwa/wa-automate -w -p 8085 https://webhook.site.... --socket
 
