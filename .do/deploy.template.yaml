@@ -6,9 +6,6 @@ spec:
       registry_type: DOCKER_HUB
       repository: wa-automate
       tag: latest
-    git:
-      branch: main
-      repo_clone_url: https://github.com/open-wa/wa-automate-deploy-heroku.git
     name: open-wa-easy-api
     instance_count: 1
     envs: 
