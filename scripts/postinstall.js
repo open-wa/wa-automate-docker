@@ -20,7 +20,7 @@ import isNil from 'lodash/isNil.js';
 import fetch from 'node-fetch';
 import { installBrowsersForNpmInstall } from 'playwright-core/lib/server'
 import puppeteer from 'puppeteer'
-import rimraf from 'rimraf'
+import {rimraf} from 'rimraf'
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const execAsync = promisify(nodeExec);
