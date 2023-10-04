@@ -28,6 +28,18 @@ For example:
 > docker run -e PORT=8085 -p 8080:8085 --init openwa/wa-automate -w https://webhook.site.... --socket
 ```
 
+#Save Session login
+```
+# checking for current running container id
+docker ps
+# save current as wa image
+docker commit 2a1fe72c441f wa
+# stop the current container
+docker stop 2a1fe72c441f
+
+#And Finally:
+docker run -p 8080:8080 --init wa --license-key ......
+``` 
 ## Versioning
 
 The only tag for this docker image is `latest`. On launch of the docker container, the latest version of the main library is checked and updated. So all you need to do to use the latest [wa-automate](https://github.com/open-wa/wa-automate-nodejs) code is to restart your container.
