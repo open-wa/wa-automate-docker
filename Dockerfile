@@ -48,13 +48,7 @@ RUN <<eot bash
     apt install nano wget --no-install-recommends  -y
     apt upgrade -y
     cd /tmp
-    wget -q --no-check-certificate https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-    apt install ./google-chrome-stable_current_amd64.deb -y
-    rm google-chrome-stable_current_amd64.deb
-    export PUPPETEER_SKIP_DOWNLOAD=true
-    ln -s /usr/bin/google-chrome-stable /usr/bin/google-chrome
-    cd /opt/google/chrome
-    chown -R owauser:owauser /usr/bin/google-chrome
+    npx playwright@latest install --with-deps chrome --force
     rm -rf WidevineCdm/
     cd locales
     ls | grep -v file.txt | xargs rm
@@ -85,4 +79,4 @@ RUN npm prune --production && chown -R owauser:owauser $APP_DIR
 USER owauser
 
 
-ENTRYPOINT ["/usr/bin/dumb-init", "--", "./start.sh", "./node_modules/@open-wa/wa-automate/bin/server.js", "--in-docker", "--qr-timeout", "0", "--popup", "--debug", "--force-port"]
+ENTRYPOINT ["/usr/bin/dumb-init", "--", "./start.sh", "./node_modules/@open-wa/wa-automate/bin/server.js", "--use-chrome", "--in-docker", "--qr-timeout", "0", "--popup", "--debug", "--force-port"]
