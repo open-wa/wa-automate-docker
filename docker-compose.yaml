@@ -1,34 +1,5 @@
-
 version: "3.9"
 services:
-
-  browser:
-    image: browserless/chrome:latest
-    hostname: browser
-    init: true
-    volumes:
-      - "sessions:/sessions"
-    ports:
-      - "3000:3000"
-    deploy:
-      replicas: 1
-      update_config:
-        parallelism: 1
-        delay: 10s
-      restart_policy:
-        condition: on-failure
-    environment:
-      CONNECTION_TIMEOUT: -1
-      KEEP_ALIVE: 'true'
-      WORKSPACE_EXPIRE_DAYS: 1
-      ENABLE_CORS: 'true'
-      CHROME_REFRESH_TIME: 86400000
-      DEFAULT_BLOCK_ADS: 'true'
-      FUNCTION_ENABLE_INCOGNITO_MODE: 'true'
-      ENABLE_XVBF: 'true'
-      CHROME_PATH: '/usr/bin/google-chrome'
-      USE_CHROME_STABLE: 'true'
-      NODE_ENV: 'production'
 
   owa:
     image: openwa/wa-automate:latest
@@ -37,15 +8,11 @@ services:
     restart: on-failure
     volumes:
       - "sessions:/sessions"
-    depends_on:
-      - browser
     ports:
       - "8080:8080"
     environment:
-      WA_BROWSER_WS_ENDPOINT: 'ws://browser:3000'
-      WA_DISABLE_SPINS: 'true'
-      # Uncomment next line and add the session data base64 string to authenticate the session without the need to scan it again
-      # WA_SESSION_DATA: ''
+      WA_DISABLE_SPINS: 'true' # Example cli config as ENV VAR. Use any flag from https://docs.openwa.dev/docs/configuration/command-line-options and convert to capital snake case with `WA_` prefix
+      WA_SESSION_ID: "MY_SESSION" # Change this
 
 volumes:
   sessions:
