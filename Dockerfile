@@ -18,6 +18,7 @@ ENV WA_USE_CHROME=true
 ENV PUPPETEER_CHROMIUM_REVISION=${PUPPETEER_CHROMIUM_REVISION}
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
 ENV PLAYWRIGHT_BROWSERS_PATH=${APP_DIR}
+ENV CLOUDFLARED_BIN /usr/local/bin/cloudflared
 
 COPY . $APP_DIR
 
@@ -69,6 +70,8 @@ RUN <<eot bash
   chown -R owauser:owauser /usr/src/app
   npm i @open-wa/wa-automate@latest --ignore-scripts
   npm cache clean --force
+  curl -L --output cloudflared.deb https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb
+  dpkg -i cloudflared.deb
 eot
 
 ENV LANG en_US.UTF-16
